@@ -2,6 +2,16 @@ start() {
   echo " Installing - $this_plugin_name"
 }
 
+uninstall_if() {
+  if [ "_rm" == "$1" ]; then
+    echo " Uninstalling - $this_plugin_name"
+    remove_from_bashrc
+    echo " done"
+    echo
+    exit 0
+  fi
+}
+
 validate() {
   require_param "this_plugin_name"
   require_param "bashrc"
