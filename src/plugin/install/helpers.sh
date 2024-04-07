@@ -3,7 +3,7 @@ start() {
 }
 
 uninstall_if() {
-  if [ "_rm" == "$1" ]; then
+  if has_arg "_rm" "$@"; then
     echo " Uninstalling - $this_plugin_name"
     remove_from_bashrc
     echo " done"
@@ -50,4 +50,16 @@ require_param() {
     echo
     exit 1
   fi
+}
+
+has_arg() {
+  local name="$1"
+  local list="${@:2}"
+  for arg in "$list"; do
+    if [[ "$arg" == *"$name"* ]]; then
+      return 0
+    else
+      return 1
+    fi
+  done
 }
